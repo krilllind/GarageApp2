@@ -12,12 +12,10 @@ namespace GarageWebbApp2._0.Models
         [Key]
         public int ID { get; set; }
 
-        [Required]
-        [RegularExpression("^[A-Z]{3}[0-9]{3}$", ErrorMessage = "Needs to be in the format off AAA111 and be unique.")]
+        [Required, RegularExpression("^[A-Z]{3}[0-9]{3}$", ErrorMessage = "Needs to be in the format off AAA111 and be unique."), Index(IsUnique=true), StringLength(450)]
         public string RegNum { get; set; }
 
-        [Required, MaxLength(50)]
-        [RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces")]
+        [Required, RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces"), MaxLength(50)]
         public string Owner { get; set; }
 
         [Required, Range(0, 8)]
@@ -26,8 +24,7 @@ namespace GarageWebbApp2._0.Models
         [Required, Range(0, 2017)]
         public int ModelYear { get; set; }
 
-        [Required, MaxLength(50)]
-        [RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö0-9-/ ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces")]
+        [Required, RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö0-9-/ ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces"), MaxLength(50)]
         public string Model { get; set; }
 
         [Required]

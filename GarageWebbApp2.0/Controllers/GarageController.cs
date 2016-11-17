@@ -80,8 +80,7 @@ namespace GarageWebbApp2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var temp = db.Search("RegNum", vehicleItem.RegNum);
-                //if (temp.Count()>0)
+                //if (db.HasColumnWithValue("RegNum", vehicleItem.RegNum))
                 //{
                 //    ViewBag.Message = "InDB";
                 //    return View(vehicleItem);

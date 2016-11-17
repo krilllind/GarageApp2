@@ -68,6 +68,7 @@ namespace GarageWebbApp2._0.Repositories
         {
             context.Vehicles.Add(item);
             context.SaveChanges();
+            
         }
 
         public void DeleteVehicle(int id)
@@ -78,6 +79,16 @@ namespace GarageWebbApp2._0.Repositories
                 context.Vehicles.Remove(item);
                 context.SaveChanges();
             }
+        }
+
+        public bool HasColumnWithValue(string col, string val)
+        {
+            var tmp = context.Vehicles.Where(o => typeof(Vehicle).GetProperty(col).GetValue(o, null).ToString().ToLower() == val.ToLower()).ToList();
+
+            if (tmp.Count() > 0)
+                return true;
+
+            return true;
         }
 
         public void EditVehicle(Vehicle item)
