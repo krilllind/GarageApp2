@@ -30,7 +30,7 @@ namespace GarageWebbApp2._0.Models
         [RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö0-9-/ ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces")]
         public string Model { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         public VehicleColors Color { get; set; }

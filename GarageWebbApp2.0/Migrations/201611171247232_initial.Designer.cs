@@ -13,12 +13,12 @@ namespace GarageWebbApp2._0.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201611170945386_initial"; }
+            get { return "201611171247232_initial"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

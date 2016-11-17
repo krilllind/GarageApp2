@@ -78,12 +78,12 @@ namespace GarageWebbApp2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                var temp = db.Search("RegNum", vehicleItem.RegNum);
-                if (temp.Count() > 0)
-                {
-                    ViewBag.Message = "InDB";
-                    return View(vehicleItem);
-                }
+                //var temp = db.Search("RegNum", vehicleItem.RegNum);
+                //if (temp.Count() > 0)
+                //{
+                //    ViewBag.Message = "InDB";
+                //    return View(vehicleItem);
+                //}
                 
                 db.AddVehicle(vehicleItem);
                 return RedirectToAction("Index");
