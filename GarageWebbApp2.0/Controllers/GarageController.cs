@@ -58,8 +58,6 @@ namespace GarageWebbApp2._0.Controllers
             return View(res);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Remove(int id)
         {
             if (ModelState.IsValid)

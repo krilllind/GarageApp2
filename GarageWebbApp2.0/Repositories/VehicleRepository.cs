@@ -18,7 +18,7 @@ namespace GarageWebbApp2._0.Repositories
         public VehicleRepository()
         {
             context = new ContextLayer();
-            dt = new DataTable();
+            //dt = new DataTable("Vehicles");
         }
 
         public IEnumerable<Vehicle> GetAllVehicles()
@@ -93,8 +93,12 @@ namespace GarageWebbApp2._0.Repositories
 
         public bool IsDataBaseEmpty()
         {
-            if (dt == null || dt.Rows.Count == 0)
+            List<Vehicle> vehicles = context.Vehicles.ToList();
+            int size = vehicles.Count();
+            
+            if (size == 0)
                 return true;
+            
 
             return false;
         }
