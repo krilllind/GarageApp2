@@ -17,6 +17,7 @@ namespace GarageWebbApp2._0.Migrations
                         NumberOfWheels = c.Int(nullable: false),
                         ModelYear = c.Int(nullable: false),
                         Model = c.String(nullable: false, maxLength: 50),
+                        Date = c.DateTime(nullable: true),
                         Color = c.Int(nullable: false),
                         VehicleType = c.Int(nullable: false),
                     })

@@ -18,7 +18,7 @@ namespace GarageWebbApp2._0.Migrations
         {
             context.Vehicles.AddOrUpdate(
                 o => o.ID,
-                new Vehicle { Model = "Volvo S70", ModelYear = 1997, NumberOfWheels = 4, Owner = "Kristoffer Lindström", Color = VehicleColors.Silver, VehicleType = VehicleTypes.Car, RegNum = "BAO564", Date =DateTime.Now},
+                new Vehicle { Model = "Volvo S70", ModelYear = 1997, NumberOfWheels = 4, Owner = "Kristoffer Lindström", Color = VehicleColors.Silver, VehicleType = VehicleTypes.Car, RegNum = "BAO564", Date = DateTime.Now },
                 new Vehicle { Model = "Saab 9-5", ModelYear = 2001, NumberOfWheels = 4, Owner = "Robin Viklund", Color = VehicleColors.Gray, VehicleType = VehicleTypes.Car, RegNum = "SOU510", Date = DateTime.Now }
             );
         }

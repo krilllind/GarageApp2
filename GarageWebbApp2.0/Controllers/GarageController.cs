@@ -78,16 +78,12 @@ namespace GarageWebbApp2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-<<<<<<< HEAD
-                //if (db.HasColumnWithValue("RegNum", vehicleItem.RegNum))
-=======
-                //var temp = db.Search("RegNum", vehicleItem.RegNum);
-                //if (temp.Count() > 0)
->>>>>>> 4bc8f87fd08e3ba5bf1a4fbc0cf2279a9dd9dbb9
-                //{
-                //    ViewBag.Message = "InDB";
-                //    return View(vehicleItem);
-                //}
+                var temp = db.Search("RegNum", vehicleItem.RegNum);
+                if (temp.Count() > 0)
+                {
+                    ViewBag.Message = "InDB";
+                    return View(vehicleItem);
+                }
                 
                 db.AddVehicle(vehicleItem);
                 return RedirectToAction("Index");
@@ -100,6 +96,8 @@ namespace GarageWebbApp2._0.Controllers
         {
             List<string> VehicleTypes = new List<string>();
             List<string> VehicleColors = new List<string>();
+            FilterDates filterDate;
+
             FilterViewModels obj = JsonConvert.DeserializeObject<FilterViewModels>(filter);
 
             foreach (var item in obj.VehicleTypes)
@@ -110,7 +108,9 @@ namespace GarageWebbApp2._0.Controllers
                 if (item.Value)
                     VehicleColors.Add(item.Key);
 
-            return Json(db.GetVehicleView(VehicleTypes, VehicleColors), JsonRequestBehavior.AllowGet);
+            filterDate = (FilterDates)Enum.Parse(typeof(FilterDates), obj.Date, true);
+
+            return Json(db.GetVehicleView(filterDate, VehicleTypes, VehicleColors), JsonRequestBehavior.AllowGet);
         }
 
         public string GetFilters()

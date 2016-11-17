@@ -23,5 +23,7 @@ namespace GarageWebbApp2._0.Models
         public string Color { get; set; }
 
         public string VehicleType { get; set; }
+
+        public DateTime? Date { get; set; }
     }
 }

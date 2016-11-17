@@ -27,7 +27,7 @@ namespace GarageWebbApp2._0.Models
         [Required, RegularExpression("^[a-z|å|ä|öA-Z|Å|Ä|Ö0-9-/ ]*", ErrorMessage = "Can only contain 'a-ö', 'A-Ö' and spaces"), MaxLength(50)]
         public string Model { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         [Required]
         public VehicleColors Color { get; set; }
@@ -54,5 +54,13 @@ namespace GarageWebbApp2._0.Models
         Yellow,
         Silver,
         Gray
+    }
+
+    public enum FilterDates
+    {
+        Today,
+        Week,
+        Month,
+        None
     }
 }

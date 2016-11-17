@@ -25,21 +25,9 @@
         </div>
 
         <h4>Limit by time</h4>
-        <div class="wrap">
-            <input type="radio" id="all" name="date" checked/>
-            <label for="all" class="noselect"><span></span>All</label>
-        </div>
-        <div class="wrap">
-            <input type="radio" id="today" name="date" />
-            <label for="today" class="noselect"><span></span>Today</label>
-        </div>
-        <div class="wrap">
-            <input type="radio" id="week" name="date" />
-            <label for="week" class="noselect"><span></span>This week</label>
-        </div>
-        <div class="wrap">
-            <input type="radio" id="month" name="date" />
-            <label for="month" class="noselect"><span></span>This month</label>
+        <div class="wrap" ng-repeat="(key, data) in filters.FilterDates">
+            <input type="radio" name="dates" id="{{key}}" ng-model="filters.Date" value="{{key}}" ng-change="bindDate()" />
+            <label for="{{key}}" class="noselect"><span></span>{{key}}</label>
         </div>
     </aside>
 
