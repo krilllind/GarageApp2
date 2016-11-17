@@ -1,0 +1,180 @@
+﻿.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+.fa-external-link
+{
+    font-size: 11px !important;
+    vertical-align: top;
+    color: #222222 !important;
+}
+
+body 
+{
+    padding-top: 50px;
+}
+
+.body-content
+{
+    min-height: 100vh;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt 
+{
+    white-space: normal;
+}
+
+.RemoveBtn
+{
+    outline: 0 !important;
+    border: none;
+    background-color: transparent;
+}
+
+.RemoveBtn > .fa
+{
+    color: red !important;
+    font-size: 16px;
+    outline: 0 !important;
+
+    transition: transform 0.1s ease-in-out;
+    -webkit-transition: transform 0.1s ease-in-out;
+}
+
+.RemoveBtn:hover > .fa
+{
+    transform: scale(1.2);
+}
+
+.fa
+{
+    color: #E514D0;
+}
+
+.filter-inputs 
+{
+    background-color: #EEEEEE;
+}
+
+.filter-inputs h2
+{
+    padding-left: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #000000;
+}
+
+.filter-inputs input
+{
+    display: none;
+}
+
+.filter-inputs label
+{
+    cursor: pointer;
+}
+
+.filter-inputs label > span
+{
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #222222;
+    box-shadow: 0 0 2px #555555 inset;
+    margin-right: 5px;
+    vertical-align: middle;
+    border-radius: 50%;
+    position: relative;
+}
+
+.filter-inputs input:checked + label > span:after
+{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #E514D0;
+    position: absolute;
+    transform: translate(50%, 50%);
+    border-radius: 50%;
+}
+
+footer
+{
+    height: 300px;
+    background-color: #222222;
+    margin: 0;
+    color: #E514D0;
+    position: relative;
+}
+
+footer h3
+{
+    padding-bottom: 8px;
+    color: #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+footer ul
+{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+footer ul li + li
+{
+    margin-top: 10px;
+}
+
+footer ul li i.fa
+{
+    width: 25px;
+    text-align: center;
+    font-size: 16px;
+}
+
+footer ul li a
+{
+    color: #FFFFFF;
+    font-size: 16px;
+
+    transition: margin 0.1s ease-in-out;
+    -webkit-transition: margin 0.1s ease-in-out;
+}
+
+footer ul li a:hover
+{
+    margin-left: 8px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+footer .social-media i.fa
+{
+    font-size: 40px;
+    margin-right: 25px;
+
+    transition: color 0.1s ease-in-out;
+    -webkit-transition: color 0.1s ease-in-out;
+}
+
+footer .social-media i.fa:hover
+{
+    color: #FFFFFF;
+}
+
+footer .copyright
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 16px;
+}

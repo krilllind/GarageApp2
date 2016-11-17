@@ -1,0 +1,102 @@
+﻿using GarageWebbApp2._0.Data_Access_Layer;
+using GarageWebbApp2._0.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+
+namespace GarageWebbApp2._0.Repositories
+{
+    public class VehicleRepository
+    {
+        private ContextLayer context;
+        private DataTable dt;
+
+        public VehicleRepository()
+        {
+            context = new ContextLayer();
+            dt = new DataTable();
+        }
+
+        public IEnumerable<Vehicle> GetAllVehicles()
+        {
+            return context.Vehicles;
+        }
+
+        public IEnumerable<VehicleViewModels> GetVehicleView(List<string> FilterTypes = null, List<string> FilterColors = null)
+        {
+            FilterViewModels filters = new FilterViewModels();
+            List<Vehicle> TempVehicles = new List<Vehicle>();
+            List<VehicleViewModels> SelectedVehicles = new List<VehicleViewModels>();
+
+            if (FilterColors.Count() == 0)
+                FilterColors = filters.VehicleColors.Keys.ToList();
+
+            if (FilterTypes.Count() == 0)
+                FilterTypes = filters.VehicleTypes.Keys.ToList();
+
+            TempVehicles = context.Vehicles.ToList().Where(o => FilterTypes.Contains(Enum.GetName(typeof(VehicleTypes), o.VehicleType).ToString())
+                && FilterColors.Contains(Enum.GetName(typeof(VehicleColors), o.Color).ToString())).ToList();
+
+            foreach (var item in TempVehicles)
+            {
+                SelectedVehicles.Add(new VehicleViewModels
+                {
+                    ID = item.ID,
+                    Owner = item.Owner,
+                    RegNum = item.RegNum,
+                    Model = item.Model,
+                    ModelYear = item.ModelYear,
+                    NumberOfWheels = item.NumberOfWheels,
+                    Color = ((VehicleColors)item.Color).ToString(),
+                    VehicleType = ((VehicleTypes)item.VehicleType).ToString()
+                });
+            }
+
+            return SelectedVehicles;
+        }
+
+        public Vehicle GetVehicleById(int id)
+        {
+            return context.Vehicles.FirstOrDefault(o => o.ID == id);
+        }
+
+        public void AddVehicle(Vehicle item)
+        {
+            context.Vehicles.Add(item);
+            context.SaveChanges();
+        }
+
+        public void DeleteVehicle(int id)
+        {
+            Vehicle item = context.Vehicles.FirstOrDefault(o => o.ID == id);
+            if (item != null)
+            {
+                context.Vehicles.Remove(item);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditVehicle(Vehicle item)
+        {
+            context.Entry(item).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
+        {
+            return context.Vehicles.AsEnumerable().Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
+        }
+
+        public bool IsDataBaseEmpty()
+        {
+            if (dt == null || dt.Rows.Count == 0)
+                return true;
+
+            return false;
+        }
+    }
+}

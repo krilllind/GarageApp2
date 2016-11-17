@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GarageWebbApp2._0.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Garage";
+}
+
+<header class="col-xs-12">
+    <h2 class="col-xs-12 text-center">These are all the vehicles in this garage!</h2>
+</header>
+
+<content class="col-xs-12" ng-controller="garage_controller">
+    <aside class="col-sm-3 col-xs-12 filter-inputs">
+        <h2 class="col-xs-12">Filters</h2>
+
+        <h4>Type</h4>
+        <div class="wrap" ng-repeat="(key, data) in filters.VehicleTypes">
+            <input type="checkbox" id="{{key}}" ng-model="filters.VehicleTypes[key]" />
+            <label for="{{key}}" class="noselect"><span></span>{{key}}</label>
+        </div>
+
+        <h4>Colors</h4>
+        <div class="wrap" ng-repeat="(key, data) in filters.VehicleColors">
+            <input type="checkbox" id="{{key}}" ng-model="filters.VehicleColors[key]" />
+            <label for="{{key}}" class="noselect"><span></span>{{key}}</label>
+        </div>
+
+        <h4>Limit by time</h4>
+        <div class="wrap">
+            <input type="radio" id="all" name="date" checked/>
+            <label for="all" class="noselect"><span></span>All</label>
+        </div>
+        <div class="wrap">
+            <input type="radio" id="today" name="date" />
+            <label for="today" class="noselect"><span></span>Today</label>
+        </div>
+        <div class="wrap">
+            <input type="radio" id="week" name="date" />
+            <label for="week" class="noselect"><span></span>This week</label>
+        </div>
+        <div class="wrap">
+            <input type="radio" id="month" name="date" />
+            <label for="month" class="noselect"><span></span>This month</label>
+        </div>
+    </aside>
+
+    <article class="col-sm-8 col-sm-offset-1 col-xs-12 col-xs-offset-0">
+        <table class="table col-xs-12">
+            <tr class="row">
+                <th class="col-xs-4">Registration number</th>
+                <th class="col-xs-4">Owner</th>
+                <th class="col-xs-3">Vehicle type</th>
+                <th class="col-xs-1"></th>
+            </tr>
+
+            <tr ng-repeat="data in vehicles" class="row">
+                <td class="col-xs-4" ><a href="/Garage/Details/{{data.ID}}">{{data.RegNum}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                <td class="col-xs-4" ng-bind="data.Owner" ></td>
+                <td class="col-xs-3" ng-bind="data.VehicleType" ></td>
+                <td class="col-xs-1"><a href="/Garage/Remove/{{data.ID}}" class="RemoveBtn"><i class="fa fa-trash text-danger"></i></a></td>
+            </tr>
+        </table>
+    </article>
+</content>

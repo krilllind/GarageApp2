@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | Garage 2.0</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Using SweetAlert2 here -->
+    <script src="https://cdn.jsdelivr.net/g/sweetalert2@6.1.0(sweetalert2.min.js+sweetalert2.js)"></script>
+    <link href="https://cdn.jsdelivr.net/g/sweetalert2@6.1.0(sweetalert2.min.css+sweetalert2.css)" rel="stylesheet" />
+</head>
+<body ng-app="garage_app" ng-cloak>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Garage 2.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("View Garage", "Index", "Garage")</li>
+                    <li>@Html.ActionLink("Park vehicle", "Parking", "Garage")</li>
+                    <li>@Html.ActionLink("Search", "Search", "Garage")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="container-fluid">
+        <div class="container">
+            <article class="col-sm-4 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+                <h3>The menu</h3>
+
+                <ul>
+                    <li>
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        @Html.ActionLink("Home", "Index", "Home", new { title = "Home" })
+                    </li>
+                    <li>
+                        <i class="fa fa-car" aria-hidden="true"></i>
+                        @Html.ActionLink("View Garage", "Index", "Garage", new { title = "Show all vehicles" })
+                    </li>
+                    <li>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        @Html.ActionLink("Park vehicle", "Parking", "Garage", new { title = "Add new vehicle to the garage" })
+                    </li>
+                    <li>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        @Html.ActionLink("Search", "Search", "Garage", new { title = "Search for a vehicle" })
+                    </li>
+                </ul>
+            </article>
+
+            <article class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 social-media">
+                <h3>Become a stalker</h3>
+
+                <a href="#" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="#" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                <a href="#" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </article>
+
+            <div class="col-xs-12 copyright">
+                <p class="text-center">&copy; @DateTime.Now.Year The best app eva!</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
