@@ -6,6 +6,7 @@
 *.user
 *.sln.docstates
 *.csproj
+*.sln
 
 # Build results
 [Dd]ebug/
