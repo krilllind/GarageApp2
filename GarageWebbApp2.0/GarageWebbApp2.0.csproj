@@ -186,10 +186,6 @@
     <Content Include="App_Data\Garage_log.ldf">
       <DependentUpon>Garage.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\Parked.mdf" />
-    <Content Include="App_Data\Parked_log.ldf">
-      <DependentUpon>Parked.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />

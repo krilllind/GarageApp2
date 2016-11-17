@@ -66,6 +66,7 @@ namespace GarageWebbApp2._0.Repositories
 
         public void AddVehicle(Vehicle item)
         {
+            item.Date = DateTime.Today.ToString();
             context.Vehicles.Add(item);
             context.SaveChanges();
         }

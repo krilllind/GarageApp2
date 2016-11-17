@@ -74,17 +74,17 @@ namespace GarageWebbApp2._0.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Parking([Bind(Include = "ItemID,RegNum,Owner,NumberOfWheels,ModelYear,Model,Color,VehicleType")] Vehicle vehicleItem)
+        public ActionResult Parking([Bind(Include = "ItemID,RegNum,Owner,NumberOfWheels,ModelYear,Model,Color,VehicleType,Date")] Vehicle vehicleItem)
         {
             if (ModelState.IsValid)
             {
-                //var temp = db.Search("RegNum", vehicleItem.RegNum);
-                //if (temp.Count()>0)
-                //{
-                //    ViewBag.Message = "InDB";
-                //    return View(vehicleItem);
-                //}
-
+                var temp = db.Search("RegNum", vehicleItem.RegNum);
+                if (temp.Count() > 0)
+                {
+                    ViewBag.Message = "InDB";
+                    return View(vehicleItem);
+                }
+                
                 db.AddVehicle(vehicleItem);
                 return RedirectToAction("Index");
             }
