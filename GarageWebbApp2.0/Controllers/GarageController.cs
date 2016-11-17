@@ -58,8 +58,6 @@ namespace GarageWebbApp2._0.Controllers
             return View(res);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Remove(int id)
         {
             if (ModelState.IsValid)
@@ -76,16 +74,21 @@ namespace GarageWebbApp2._0.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Parking([Bind(Include = "ItemID,RegNum,Owner,NumberOfWheels,ModelYear,Model,Color,VehicleType")] Vehicle vehicleItem)
+        public ActionResult Parking([Bind(Include = "ItemID,RegNum,Owner,NumberOfWheels,ModelYear,Model,Color,VehicleType,Date")] Vehicle vehicleItem)
         {
             if (ModelState.IsValid)
             {
+<<<<<<< HEAD
                 //if (db.HasColumnWithValue("RegNum", vehicleItem.RegNum))
+=======
+                //var temp = db.Search("RegNum", vehicleItem.RegNum);
+                //if (temp.Count() > 0)
+>>>>>>> 4bc8f87fd08e3ba5bf1a4fbc0cf2279a9dd9dbb9
                 //{
                 //    ViewBag.Message = "InDB";
                 //    return View(vehicleItem);
                 //}
-
+                
                 db.AddVehicle(vehicleItem);
                 return RedirectToAction("Index");
             }
