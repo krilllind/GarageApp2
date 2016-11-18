@@ -30,6 +30,34 @@ namespace GarageWebbApp2._0.Repositories
             FilterViewModels filters = new FilterViewModels();
             List<Vehicle> TempVehicles = new List<Vehicle>();
             List<VehicleViewModels> SelectedVehicles = new List<VehicleViewModels>();
+            DateTime FromDate;
+            DateTime ToDate;
+            DateTime Today = DateTime.Now;
+
+            switch(date)
+            {
+                case FilterDates.Today:
+                    FromDate = new DateTime(Today.Year, Today.Month, Today.Day, 0, 0, 0);
+                    ToDate = new DateTime(Today.Year, Today.Month, Today.Day, 23, 59, 59);
+                    break;
+
+                case FilterDates.Week:
+                    int x = Today.Day - (Today.Day % 7);
+                    FromDate = new DateTime(Today.Year, Today.Month, x);
+                    ToDate = new DateTime(Today.Year, Today.Month, x + 7);
+                    break;
+
+                case FilterDates.Month:
+                    FromDate = new DateTime(Today.Year, Today.Month, 1);
+                    ToDate = new DateTime(Today.Year, Today.Month, DateTime.DaysInMonth(Today.Year, Today.Month));
+                    break;
+
+                default:
+                    FromDate = new DateTime(1970, 1, 1);
+                    ToDate = new DateTime(Today.Year + 3, Today.Month, Today.Day);
+                    break;
+            }
+
 
             if (FilterColors.Count() == 0)
                 FilterColors = filters.VehicleColors.Keys.ToList();
@@ -38,7 +66,8 @@ namespace GarageWebbApp2._0.Repositories
                 FilterTypes = filters.VehicleTypes.Keys.ToList();
 
             TempVehicles = context.Vehicles.ToList().Where(o => FilterTypes.Contains(Enum.GetName(typeof(VehicleTypes), o.VehicleType).ToString())
-                && FilterColors.Contains(Enum.GetName(typeof(VehicleColors), o.Color).ToString())).ToList();
+                && FilterColors.Contains(Enum.GetName(typeof(VehicleColors), o.Color).ToString())
+                && o.Date >= FromDate && o.Date <= ToDate).ToList();
 
             foreach (var item in TempVehicles)
             {
@@ -80,7 +109,6 @@ namespace GarageWebbApp2._0.Repositories
                 context.SaveChanges();
             }
         }
-
 
         public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
         {

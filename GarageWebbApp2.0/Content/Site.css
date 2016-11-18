@@ -8,6 +8,20 @@
                                   not supported by any browser */
 }
 
+.goBack
+{
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    color: #222222;
+    font-size: 35px;
+}
+
+.goBack:hover
+{
+    animation: swing 0.8s linear infinite;
+}
+
 .fa-external-link
 {
     font-size: 11px !important;
@@ -31,6 +45,34 @@ body
 .dl-horizontal dt 
 {
     white-space: normal;
+}
+
+.vehicleImageContainer
+{
+    position: relative;
+}
+
+.vehicleImageContainer:before
+{
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+}
+
+.vehicleImage
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../Media/car.jpg');
+    background-size: cover;
+}
+
+.parkBtn
+{
+    margin-top: 24px;
 }
 
 .RemoveBtn
@@ -58,6 +100,37 @@ body
 .fa
 {
     color: #E514D0;
+}
+
+.searchFilters select, .searchFilters input[type=text], .searchFilters button[type=submit]
+{
+    padding: 8px 25px;
+    outline: 0;
+}
+
+.searchFilters button[type=submit]
+{
+    margin-top: 30px;
+    background-color: #222222;
+    border: 1px solid transparent;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: #FFFFFF;
+    font-size: 16px;
+
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+}
+
+.searchFilters button[type=submit] > span
+{
+    display: inline-block;
+    padding-left: 5px;
+}
+
+.searchFilters button[type=submit]:hover > i
+{
+    transform: scale(1.25);
 }
 
 .filter-inputs 
@@ -177,4 +250,11 @@ footer .copyright
     bottom: 0;
     left: 0;
     font-size: 16px;
+}
+
+@keyframes swing
+{
+    0% { left: 10px; }
+    50% { left: 25px; }
+    100% { left: 10px; }
 }

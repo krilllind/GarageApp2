@@ -5,21 +5,7 @@ app.controller("garage_controller", function ($scope, $http) {
     $scope.filters = {};
 
     // Filter out selections on checkbox check
-    $scope.$watch("filters", function (data) {
-        alert(JSON.stringify($scope.filters));
-
-        $http.get("/Garage/ListVehicles/", {
-            params: { filter: $scope.filters }
-        }).success(function (data) {
-            if (data != null || data != "undefined") {
-                $scope.vehicles = data;
-            }
-        });
-    }, true);
-
-    $scope.bindDate = function (data) {
-
-    }
+    $scope.$watch("filters", FilterOut, true);
 
     // Get all filters
     $http.get("/Garage/GetFilters/").success(function (data) {
@@ -36,4 +22,31 @@ app.controller("garage_controller", function ($scope, $http) {
             $scope.vehicles = data;
         }
     });
+
+    // On reset button click
+    $("#reset-all-filters").click(function () {
+        var checked = $(this).prop("checked");
+
+        angular.forEach($scope.filters.VehicleTypes, function (val, key) {
+            $scope.filters.VehicleTypes[key] = checked;
+        });
+
+        angular.forEach($scope.filters.VehicleColors, function (val, key) {
+            $scope.filters.VehicleColors[key] = checked;
+        });
+
+        $("input:radio").find("#None").prop("checked", true);
+        $("input:checkbox").not($(this)).prop("checked", checked);
+        FilterOut();
+    });
+
+    function FilterOut() {
+        $http.get("/Garage/ListVehicles/", {
+            params: { filter: $scope.filters }
+        }).success(function (data) {
+            if (data != null || data != "undefined") {
+                $scope.vehicles = data;
+            }
+        });
+    }
 });
