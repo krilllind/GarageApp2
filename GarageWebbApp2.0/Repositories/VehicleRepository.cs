@@ -14,6 +14,7 @@ namespace GarageWebbApp2._0.Repositories
     {
         private ContextLayer context;
 
+
         public VehicleRepository()
         {
             context = new ContextLayer();
@@ -109,9 +110,13 @@ namespace GarageWebbApp2._0.Repositories
             }
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fa5d8cf590489f100a8b39968c50943a396a51f8
         public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
         {
-            return context.Vehicles.AsEnumerable().Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
+            return context.Vehicles.AsEnumerable().OrderBy(o => o.VehicleType).Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
         }
 
         public bool IsDataBaseEmpty()
