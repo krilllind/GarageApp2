@@ -13,12 +13,12 @@ namespace GarageWebbApp2._0.Repositories
     public class VehicleRepository
     {
         private ContextLayer context;
-        private DataTable dt;
+        
 
         public VehicleRepository()
         {
             context = new ContextLayer();
-            //dt = new DataTable("Vehicles");
+            
         }
 
         public IEnumerable<Vehicle> GetAllVehicles()
@@ -89,7 +89,7 @@ namespace GarageWebbApp2._0.Repositories
 
         public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
         {
-            return context.Vehicles.AsEnumerable().Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
+            return context.Vehicles.AsEnumerable().OrderBy(o => o.VehicleType).Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
         }
 
         public bool IsDataBaseEmpty()
