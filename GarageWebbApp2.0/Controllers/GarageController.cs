@@ -23,6 +23,11 @@ namespace GarageWebbApp2._0.Controllers
             return View(db.GetAllVehicles());
         }
 
+        public ActionResult GenericError()
+        {
+            return View();
+        }
+
         public ActionResult Details(int id)
         {
             var result = db.GetVehicleById(id);
@@ -30,7 +35,7 @@ namespace GarageWebbApp2._0.Controllers
             if (result != null)
                 return View(result);
 
-            return RedirectToAction("Error");
+            return RedirectToAction("GenericError");
         }
 
         public ActionResult Search()
@@ -64,7 +69,14 @@ namespace GarageWebbApp2._0.Controllers
             {
                 db.DeleteVehicle(id);
             }
-            return Redirect(Request.UrlReferrer.ToString());
+
+            var urlref = Request.UrlReferrer;
+
+            if (urlref != null)
+            {
+                return Redirect(urlref.ToString());
+            }
+            return RedirectToAction("GenericError");
         }
 
         public ActionResult Parking()
@@ -108,7 +120,14 @@ namespace GarageWebbApp2._0.Controllers
                 if (item.Value)
                     VehicleColors.Add(item.Key);
 
-            filterDate = (FilterDates)Enum.Parse(typeof(FilterDates), obj.Date, true);
+            try
+            {
+                filterDate = (FilterDates)Enum.Parse(typeof(FilterDates), obj.Date, true);
+            }
+            catch
+            {
+                filterDate = FilterDates.None;
+            }
 
             return Json(db.GetVehicleView(filterDate, VehicleTypes, VehicleColors), JsonRequestBehavior.AllowGet);
         }
