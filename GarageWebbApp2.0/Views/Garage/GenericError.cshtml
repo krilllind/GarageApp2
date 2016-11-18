@@ -1,8 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "GenericError";
+    ViewBag.Title = "Error";
 }
 
 <h2>Error</h2>
 
-Oops, something went wrong! You can try <a href="" onclick="location.reload(true);">refreshing the page</a> or returning to @Html.ActionLink("the index", "Index").
+<h4>Oops, something went wrong!</h4>
+You can try <a style="cursor: pointer;" onclick="history.go(-1);">going back to the previous page</a> or @Html.ActionLink("returning to the index", "Index").
