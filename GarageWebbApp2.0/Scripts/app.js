@@ -6,6 +6,8 @@ app.controller("garage_controller", function ($scope, $http) {
 
     // Filter out selections on checkbox check
     $scope.$watch("filters", function (data) {
+        alert(JSON.stringify($scope.filters));
+
         $http.get("/Garage/ListVehicles/", {
             params: { filter: $scope.filters }
         }).success(function (data) {
@@ -14,6 +16,10 @@ app.controller("garage_controller", function ($scope, $http) {
             }
         });
     }, true);
+
+    $scope.bindDate = function (data) {
+
+    }
 
     // Get all filters
     $http.get("/Garage/GetFilters/").success(function (data) {

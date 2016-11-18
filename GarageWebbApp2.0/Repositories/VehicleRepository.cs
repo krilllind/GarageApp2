@@ -13,12 +13,18 @@ namespace GarageWebbApp2._0.Repositories
     public class VehicleRepository
     {
         private ContextLayer context;
+<<<<<<< HEAD
         
+=======
+>>>>>>> 1e88f105664492159482e327588795072b72505f
 
         public VehicleRepository()
         {
             context = new ContextLayer();
+<<<<<<< HEAD
             
+=======
+>>>>>>> 1e88f105664492159482e327588795072b72505f
         }
 
         public IEnumerable<Vehicle> GetAllVehicles()
@@ -26,7 +32,7 @@ namespace GarageWebbApp2._0.Repositories
             return context.Vehicles;
         }
 
-        public IEnumerable<VehicleViewModels> GetVehicleView(List<string> FilterTypes = null, List<string> FilterColors = null)
+        public IEnumerable<VehicleViewModels> GetVehicleView(FilterDates date, List<string> FilterTypes = null, List<string> FilterColors = null)
         {
             FilterViewModels filters = new FilterViewModels();
             List<Vehicle> TempVehicles = new List<Vehicle>();
@@ -52,11 +58,12 @@ namespace GarageWebbApp2._0.Repositories
                     ModelYear = item.ModelYear,
                     NumberOfWheels = item.NumberOfWheels,
                     Color = ((VehicleColors)item.Color).ToString(),
-                    VehicleType = ((VehicleTypes)item.VehicleType).ToString()
+                    VehicleType = ((VehicleTypes)item.VehicleType).ToString(),
+                    Date = item.Date
                 });
             }
 
-            return SelectedVehicles;
+            return SelectedVehicles.OrderBy(o => o.VehicleType).ThenByDescending(o => o.Date);
         }
 
         public Vehicle GetVehicleById(int id)
@@ -81,11 +88,21 @@ namespace GarageWebbApp2._0.Repositories
             }
         }
 
-        public void EditVehicle(Vehicle item)
-        {
-            context.Entry(item).State = EntityState.Modified;
-            context.SaveChanges();
-        }
+        //public bool HasColumnWithValue(string col, string val)
+        //{
+        //    var tmp = context.Vehicles.Where(o => typeof(Vehicle).GetProperty(col).GetValue(o, null).ToString().ToLower() == val.ToLower()).ToList();
+
+        //    if (tmp.Count() > 0)
+        //        return true;
+
+        //    return true;
+        //}
+
+        //public void EditVehicle(Vehicle item)
+        //{
+        //    context.Entry(item).State = EntityState.Modified;
+        //    context.SaveChanges();
+        //}
 
         public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
         {

@@ -11,20 +11,24 @@ namespace GarageWebbApp2._0.Migrations
                 "dbo.Vehicles",
                 c => new
                     {
-                        RegNum = c.String(nullable: false, maxLength: 128),
+                        ID = c.Int(nullable: false, identity: true),
+                        RegNum = c.String(nullable: false, maxLength: 450),
                         Owner = c.String(nullable: false, maxLength: 50),
                         NumberOfWheels = c.Int(nullable: false),
                         ModelYear = c.Int(nullable: false),
                         Model = c.String(nullable: false, maxLength: 50),
+                        Date = c.DateTime(nullable: true),
                         Color = c.Int(nullable: false),
                         VehicleType = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.RegNum);
+                .PrimaryKey(t => t.ID)
+                .Index(t => t.RegNum, unique: true);
             
         }
         
         public override void Down()
         {
+            DropIndex("dbo.Vehicles", new[] { "RegNum" });
             DropTable("dbo.Vehicles");
         }
     }
