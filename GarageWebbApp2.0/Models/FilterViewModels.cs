@@ -17,7 +17,7 @@ namespace GarageWebbApp2._0.Models
             VehicleTypes = new Dictionary<string, bool>();
             VehicleColors = new Dictionary<string, bool>();
             FilterDates = new Dictionary<string, bool>();
-            this.Date = "";
+            this.Date = "None";
 
             foreach (var item in Enum.GetNames(typeof(VehicleTypes)))
                 VehicleTypes.Add(item, true);

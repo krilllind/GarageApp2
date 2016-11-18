@@ -12,6 +12,12 @@
     <aside class="col-sm-3 col-xs-12 filter-inputs">
         <h2 class="col-xs-12">Filters</h2>
 
+        <h4>Reset all</h4>
+        <div class="wrap">
+            <input type="checkbox" id="reset-all-filters" checked />
+            <label for="reset-all-filters" class="noselect"><span></span>Reset</label>
+        </div>
+
         <h4>Type</h4>
         <div class="wrap" ng-repeat="(key, data) in filters.VehicleTypes">
             <input type="checkbox" id="{{key}}" ng-model="filters.VehicleTypes[key]" />
@@ -26,7 +32,7 @@
 
         <h4>Limit by time</h4>
         <div class="wrap" ng-repeat="(key, data) in filters.FilterDates">
-            <input type="radio" name="dates" id="{{key}}" ng-model="filters.Date" value="{{key}}" ng-change="bindDate()" />
+            <input type="radio" name="dates" id="{{key}}" ng-model="filters.Date" value="{{key}}" />
             <label for="{{key}}" class="noselect"><span></span>{{key}}</label>
         </div>
     </aside>
