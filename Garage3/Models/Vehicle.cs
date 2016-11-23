@@ -11,7 +11,8 @@ namespace Garage3.Models
     {
         [Key]
         public string Vehicle_ID { get; set; }
-        [ForeignKey("Owner")]
+        [ForeignKey("Owner") ]
+        [Required]
         public string Owner_ID { get; set; }
         [ForeignKey("VehicleType")]
         public int Type { get; set; }
