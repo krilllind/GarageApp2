@@ -14,15 +14,10 @@ namespace Garage3.Models
         [ForeignKey("Owner")]
         public int Owner_ID { get; set; }
         [ForeignKey("VehicleType")]
-<<<<<<< HEAD
-        public int VehicleType { get; set; }
-=======
         public int Type { get; set; }
 
         //Navigational Prperty
         public virtual Owner Owner { get; set; }
         public virtual VehicleType Vehicletype { get; set; }
-
->>>>>>> 3c93670c39e1e16f534ea141f666ba4929e5503a
     }
 }
