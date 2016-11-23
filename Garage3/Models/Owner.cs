@@ -16,6 +16,6 @@ namespace Garage3.Models
         [ForeignKey("Vehicle")]
         public string Vehicle_ID { get; set; }
         //Navigational Prperty
-        public virtual IEnumerable<Vehicle> Vehicle { get; set; }
+        public virtual ICollection<Vehicle> Vehicle { get; set; }
     }
 }
