@@ -31,7 +31,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Repo.GetVehicle(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -56,9 +56,18 @@ namespace Garage3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Repo.GetVehicle(vehicle.Vehicle_ID) != null)
+                {
+                    ViewBag.Owner_ID = new SelectList(db.Owners, "Owner_ID", "Name", vehicle.Owner_ID);
+                    ViewBag.Type = new SelectList(db.VehicleTypes, "VehicleType_Id", "Name", vehicle.Type);
+                    return View(vehicle);
+                }
+                else
+                {
+                    Repo.Add(vehicle);
+                    return RedirectToAction("Index");
+                }
+                
             }
 
             ViewBag.Owner_ID = new SelectList(db.Owners, "Owner_ID", "Name", vehicle.Owner_ID);
@@ -73,7 +82,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Repo.GetVehicle(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -92,8 +101,7 @@ namespace Garage3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicle).State = EntityState.Modified;
-                db.SaveChanges();
+                Repo.Edit(vehicle);
                 return RedirectToAction("Index");
             }
             ViewBag.Owner_ID = new SelectList(db.Owners, "Owner_ID", "Name", vehicle.Owner_ID);
@@ -108,7 +116,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Repo.GetVehicle(id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -121,9 +129,8 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
+            Vehicle vehicle = Repo.GetVehicle(id);
+            Repo.Remove(vehicle);
             return RedirectToAction("Index");
         }
 

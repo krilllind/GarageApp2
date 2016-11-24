@@ -51,9 +51,16 @@ namespace Garage3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Owners.Add(owner);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Repo.GetOwner(owner.Owner_ID) != null)
+                {
+                    return View(owner);
+                }
+                else
+                {
+                    Repo.Add(owner);
+                    return RedirectToAction("Index");
+                }
+                
             }
 
             return View(owner);
@@ -66,7 +73,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Owner owner = db.Owners.Find(id);
+            Owner owner = Repo.GetOwner(id);
             if (owner == null)
             {
                 return HttpNotFound();
@@ -83,8 +90,7 @@ namespace Garage3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(owner).State = EntityState.Modified;
-                db.SaveChanges();
+                Repo.Edit(owner);
                 return RedirectToAction("Index");
             }
             return View(owner);
@@ -97,7 +103,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Owner owner = db.Owners.Find(id);
+            Owner owner = Repo.GetOwner(id);
             if (owner == null)
             {
                 return HttpNotFound();
@@ -110,9 +116,8 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Owner owner = db.Owners.Find(id);
-            db.Owners.Remove(owner);
-            db.SaveChanges();
+            Owner owner = Repo.GetOwner(id);
+            Repo.Remove(owner);
             return RedirectToAction("Index");
         }
 
