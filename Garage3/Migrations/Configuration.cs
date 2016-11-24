@@ -16,28 +16,6 @@ namespace Garage3.Migrations
         protected override void Seed(Garage3.DataAccesLayer.OwnerWehicleContext context)
         {
 
-            /*Owner test = context.Owners.Find("870427-8558");
-            context.Owners.Remove(test);*/
-            /*Owner testOwner = new Owner() { Name = "Robin", Owner_ID = "870427-8558"};
-            
-            
-
-            context.VehicleTypes.AddOrUpdate(
-                vt => vt.VehicleType_Id,
-
-                new VehicleType { Name = "Car"},
-                new VehicleType { Name = "Buss"},
-                new VehicleType { Name = "Bout"},
-                new VehicleType { Name = "Motorbike"}
-            );
-
-            context.Owners.AddOrUpdate(testOwner);
-            VehicleType vts = context.VehicleTypes.Find(1);
-            context.Vehicles.AddOrUpdate(
-
-                new Vehicle { Vehicle_ID = "SOU510", Owner_ID = testOwner.Owner_ID, Owner = testOwner, VehicleType = vts }
-                );
-            */
         }
     }
 }

@@ -8,18 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using Garage3.DataAccesLayer;
 using Garage3.Models;
+using Garage3.Repositories;
 
 namespace Garage3.Controllers
 {
     public class VehiclesController : Controller
     {
         private OwnerWehicleContext db = new OwnerWehicleContext();
-
+        private VehicleRepository Repo = new VehicleRepository();
         // GET: Vehicles
         public ActionResult Index()
         {
-            var vehicles = db.Vehicles.Include(v => v.Owner).Include(v => v.VehicleType);
-            return View(vehicles.ToList());
+            //var vehicles = db.Vehicles.Include(v => v.Owner).Include(v => v.VehicleType);
+            //var d = db.Vehicles.Include(v => v.)
+            return View(Repo.GetVehicles());
         }
 
         // GET: Vehicles/Details/5

@@ -8,17 +8,17 @@ using System.Web;
 using System.Web.Mvc;
 using Garage3.DataAccesLayer;
 using Garage3.Models;
-
+using Garage3.Repositories;
 namespace Garage3.Controllers
 {
     public class OwnersController : Controller
     {
         private OwnerWehicleContext db = new OwnerWehicleContext();
-
+        private VehicleRepository Repo = new VehicleRepository();
         // GET: Owners
         public ActionResult Index()
         {
-            return View(db.Owners.ToList());
+            return View(Repo.GetOwners());
         }
 
         // GET: Owners/Details/5
@@ -28,7 +28,7 @@ namespace Garage3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Owner owner = db.Owners.Find(id);
+            Owner owner = Repo.GetOwner(id);
             if (owner == null)
             {
                 return HttpNotFound();
