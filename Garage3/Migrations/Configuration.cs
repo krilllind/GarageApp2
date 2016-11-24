@@ -16,7 +16,9 @@ namespace Garage3.Migrations
         protected override void Seed(Garage3.DataAccesLayer.OwnerWehicleContext context)
         {
 
-            Owner testOwner = new Owner() { Name = "Robin", Owner_ID = "870427-8558"};
+            /*Owner test = context.Owners.Find("870427-8558");
+            context.Owners.Remove(test);*/
+            /*Owner testOwner = new Owner() { Name = "Robin", Owner_ID = "870427-8558"};
             
             
 
@@ -35,7 +37,7 @@ namespace Garage3.Migrations
 
                 new Vehicle { Vehicle_ID = "SOU510", Owner_ID = testOwner.Owner_ID, Owner = testOwner, VehicleType = vts }
                 );
-
+            */
         }
     }
 }

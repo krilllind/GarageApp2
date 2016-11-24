@@ -118,6 +118,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OwnersController.cs" />
+    <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="DataAccesLayer\OwnerWehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -125,6 +127,14 @@
     <Compile Include="Migrations\201611231439090_first.cs" />
     <Compile Include="Migrations\201611231439090_first.Designer.cs">
       <DependentUpon>201611231439090_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611240811476_second.cs" />
+    <Compile Include="Migrations\201611240811476_second.Designer.cs">
+      <DependentUpon>201611240811476_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611240828227_third.cs" />
+    <Compile Include="Migrations\201611240828227_third.Designer.cs">
+      <DependentUpon>201611240828227_third.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Owner.cs" />
@@ -172,10 +182,26 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Owners\Create.cshtml" />
+    <Content Include="Views\Owners\Delete.cshtml" />
+    <Content Include="Views\Owners\Details.cshtml" />
+    <Content Include="Views\Owners\Edit.cshtml" />
+    <Content Include="Views\Owners\Index.cshtml" />
+    <Content Include="Views\Vehicles\Create.cshtml" />
+    <Content Include="Views\Vehicles\Delete.cshtml" />
+    <Content Include="Views\Vehicles\Details.cshtml" />
+    <Content Include="Views\Vehicles\Edit.cshtml" />
+    <Content Include="Views\Vehicles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611231439090_first.resx">
       <DependentUpon>201611231439090_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611240811476_second.resx">
+      <DependentUpon>201611240811476_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611240828227_third.resx">
+      <DependentUpon>201611240828227_third.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
