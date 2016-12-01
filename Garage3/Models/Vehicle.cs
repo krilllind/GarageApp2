@@ -18,7 +18,7 @@ namespace Garage3.Models
         [ForeignKey("VehicleType"), DisplayName("Vehicle Type")]
         public int Type { get; set; }
 
-        //Navigational Prperty
+        //Navigational Parperty
         public virtual Owner Owner { get; set; }
         public virtual VehicleType VehicleType { get; set; }
     }
