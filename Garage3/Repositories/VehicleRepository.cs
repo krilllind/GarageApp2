@@ -73,5 +73,17 @@ namespace Garage3.Repositories
             db.Vehicles.Remove(ve);
             saveState();
         }
+
+        public int GetVeichleTypeID(string name)
+        {
+            foreach (var item in db.VehicleTypes)
+            {
+                if (item.Name.ToUpper() == name.ToUpper())
+                {
+                    return item.VehicleType_Id;
+                }
+            }
+            return 0;
+        }
     }
 }
