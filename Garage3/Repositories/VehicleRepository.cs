@@ -37,53 +37,51 @@ namespace Garage3.Repositories
         public void Add(Owner ow)
         {
             db.Owners.Add(ow);
-            saveState();
+            db.SaveChanges();
         }
 
         public void Add(Vehicle ve)
         {
             db.Vehicles.Add(ve);
-            saveState();
+            db.SaveChanges();
         }
 
         public void Edit(Owner ow)
         {
             db.Entry(ow).State = EntityState.Modified;
+            db.SaveChanges();
 
         }
 
         public void Edit(Vehicle ve)
         {
             db.Entry(ve).State = EntityState.Modified;
-        }
-
-        public void saveState()
-        {
             db.SaveChanges();
         }
+
 
         public void Remove(Owner ow)
         {
             db.Owners.Remove(ow);
-            saveState();
+            db.SaveChanges();
         }
 
         public void Remove(Vehicle ve)
         {
             db.Vehicles.Remove(ve);
-            saveState();
+            db.SaveChanges();
         }
 
-        public int GetVeichleTypeID(string name)
-        {
-            foreach (var item in db.VehicleTypes)
-            {
-                if (item.Name.ToUpper() == name.ToUpper())
-                {
-                    return item.VehicleType_Id;
-                }
-            }
-            return 0;
-        }
+        //public int GetVeichleTypeID(string name)
+        //{
+        //    foreach (var item in db.VehicleTypes)
+        //    {
+        //        if (item.Name.ToUpper() == name.ToUpper())
+        //        {
+        //            return item.VehicleType_Id;
+        //        }
+        //    }
+        //    return 0;
+        //}
     }
 }

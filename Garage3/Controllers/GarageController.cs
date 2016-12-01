@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace Garage3.Controllers
 {
-    public class AngularJSController : Controller
+    public class GarageController : Controller
     {
         private VehicleRepository _repo;
         // GET: AngularJS
 
-        public AngularJSController()
+        public GarageController()
         {
             _repo = new VehicleRepository();
         }
@@ -28,68 +28,54 @@ namespace Garage3.Controllers
             return Json(_repo.GetOwners(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetOwner(string id)
-        {
-            return Json(_repo.GetOwner(id), JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetAllVehicles()
         {
             return Json(_repo.GetVehicles(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetVehicle(string id)
-        {
-            return Json(_repo.GetVehicle(id), JsonRequestBehavior.AllowGet);
-        }
-
-        //not done
         [HttpPost]
         public JsonResult AddOwner(Owner owner)
         {
+            _repo.Add(owner);
+            if (_repo.GetOwners().Where(c=>c.Name == owner.Name && c.Owner_ID == owner.Owner_ID).Any())
+            {
+                return Json(new { owner });
+            }
             return Json(new { success = false });
         }
 
-        //not done
         [HttpPost]
-        public JsonResult AddVehicle(Owner owner, string id, string type)
+        public JsonResult AddVehicle(Vehicle vehicle)
         {
-            int Type = _repo.GetVeichleTypeID(type);
+            _repo.Add(vehicle);
 
+            if (_repo.GetVehicles().Where(c => c.Vehicle_ID == vehicle.Vehicle_ID).Any())
+            {
+                return Json(new { vehicle });
+            }
             return Json(new { success = false });
         }
 
-
-        //not done probebly works
-        public JsonResult EditOwner(Owner owner)
+        public void EditOwner(Owner owner)
         {
             _repo.Edit(owner);
-
-            return Json(new { success = false });
         }
 
-        //not done probebly works
-        public JsonResult EditOwner(Vehicle vehicle)
+        public void EditVehicle(Vehicle vehicle)
         {
             _repo.Edit(vehicle);
-
-            return Json(new { success = false });
         }
 
-        //not done probebly works
         [HttpPost]
-        public JsonResult DeleteOwner(Owner owner)
+        public void DeleteOwner(Owner owner)
         {
             _repo.Remove(owner);
-            return Json(new { success = false });
         }
 
-        //not done probebly works
         [HttpPost]
-        public JsonResult DeleteOwner(Vehicle vehicle)
+        public void DeleteVehicle(Vehicle vehicle)
         {
             _repo.Remove(vehicle);
-            return Json(new { success = false });
         }
     }
 }
