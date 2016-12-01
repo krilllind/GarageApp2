@@ -12,19 +12,74 @@ namespace GarageWebbApp2._0.Repositories
 {
     public class VehicleRepository
     {
-        private ContextLayer context;
-
+        private ContextLayer db;
 
         public VehicleRepository()
         {
-            context = new ContextLayer();
+            db = new ContextLayer();
         }
 
-        public IEnumerable<Vehicle> GetAllVehicles()
+        public ICollection<Owner> GetAllOwners()
         {
-            return context.Vehicles;
+            return db.Owners.ToList();
         }
 
+        public ICollection<Vehicle> GetAllVehicles()
+        {
+
+            return db.Vehicles.Include(v => v.Owner).Include(v => v.VehicleType).ToList();
+        }
+
+        public ICollection<VehicleType> GetAllVehiclesTypes()
+        {
+            return db.VehicleTypes.ToList();
+        }
+
+        public Owner GetOwner(string id)
+        {
+            return db.Owners.Find(id);
+        }
+
+        public Vehicle GetVehicle(string id)
+        {
+            return db.Vehicles.Find(id);
+        }
+
+        public void Add(Owner ow)
+        {
+            db.Owners.Add(ow);
+            db.SaveChanges();
+        }
+
+        public void Add(Vehicle ve)
+        {
+            db.Vehicles.Add(ve);
+            db.SaveChanges();
+        }
+
+        public void Edit(Owner ow)
+        {
+            db.Entry(ow).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void Edit(Vehicle ve)
+        {
+            db.Entry(ve).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void Remove(Owner ow)
+        {
+            db.Owners.Remove(ow);
+            db.SaveChanges();
+        }
+
+        public void Remove(Vehicle ve)
+        {
+            db.Vehicles.Remove(ve);
+            db.SaveChanges();
+        }
         public IEnumerable<VehicleViewModels> GetVehicleView(FilterDates date, List<string> FilterTypes = null, List<string> FilterColors = null)
         {
             FilterViewModels filters = new FilterViewModels();
@@ -34,7 +89,7 @@ namespace GarageWebbApp2._0.Repositories
             DateTime ToDate;
             DateTime Today = DateTime.Now;
 
-            switch(date)
+            switch (date)
             {
                 case FilterDates.Today:
                     FromDate = new DateTime(Today.Year, Today.Month, Today.Day, 0, 0, 0);
@@ -62,69 +117,26 @@ namespace GarageWebbApp2._0.Repositories
             if (FilterColors.Count() == 0)
                 FilterColors = filters.VehicleColors.Keys.ToList();
 
-            if (FilterTypes.Count() == 0)
-                FilterTypes = filters.VehicleTypes.Keys.ToList();
-
-            TempVehicles = context.Vehicles.ToList().Where(o => FilterTypes.Contains(Enum.GetName(typeof(VehicleTypes), o.VehicleType).ToString())
-                && FilterColors.Contains(Enum.GetName(typeof(VehicleColors), o.Color).ToString())
-                && o.Date >= FromDate && o.Date <= ToDate).ToList();
+            TempVehicles = db.Vehicles.ToList().Where(o => FilterTypes.Contains(Enum.GetName(typeof(VehicleType), o.VehicleType).ToString())
+                && FilterColors.Contains(Enum.GetName(typeof(VehicleColors), o.Color).ToString())).ToList();
 
             foreach (var item in TempVehicles)
             {
                 SelectedVehicles.Add(new VehicleViewModels
                 {
-                    ID = item.ID,
-                    Owner = item.Owner,
-                    RegNum = item.RegNum,
-                    Model = item.Model,
-                    ModelYear = item.ModelYear,
-                    NumberOfWheels = item.NumberOfWheels,
+                    Owner = item.Owner_ID,
+                    RegNum = item.Vehicle_ID,
                     Color = ((VehicleColors)item.Color).ToString(),
-                    VehicleType = ((VehicleTypes)item.VehicleType).ToString(),
-                    Date = item.Date
+                    VehicleType = ((VehicleType)item.VehicleType).ToString()
                 });
             }
 
-            return SelectedVehicles.OrderBy(o => o.VehicleType).ThenByDescending(o => o.Date);
+            return SelectedVehicles;
         }
 
-        public Vehicle GetVehicleById(int id)
-        {
-            return context.Vehicles.FirstOrDefault(o => o.ID == id);
-        }
-
-        public void AddVehicle(Vehicle item)
-        {
-            item.Date = DateTime.Now;
-            context.Vehicles.Add(item);
-            context.SaveChanges();
-        }
-
-        public void DeleteVehicle(int id)
-        {
-            Vehicle item = context.Vehicles.FirstOrDefault(o => o.ID == id);
-            if (item != null)
-            {
-                context.Vehicles.Remove(item);
-                context.SaveChanges();
-            }
-        }
-
-        public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
-        {
-            return context.Vehicles.AsEnumerable().OrderBy(o => o.VehicleType).Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
-        }
-
-        public bool IsDataBaseEmpty()
-        {
-            List<Vehicle> vehicles = context.Vehicles.ToList();
-            int size = vehicles.Count();
-            
-            if (size == 0)
-                return true;
-            
-
-            return false;
-        }
+        //public IEnumerable<Vehicle> Search(string SelectionField, string SearchField)
+        //{
+        //    return context.Vehicles.AsEnumerable().OrderBy(o => o.VehicleType).Where(o => typeof(Vehicle).GetProperty(SelectionField).GetValue(o, null).ToString().ToLower().Contains(SearchField.Trim().ToLower()));
+        //}
     }
 }

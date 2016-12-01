@@ -13,12 +13,12 @@ $(document).on("click", ".RemoveBtn", function (e) {
 
     swal({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        text: "After removing this vehicle from the garage you can't revert back!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, remove it!'
+        confirmButtonText: 'Remove'
     }).then(function () {
         swal(
           'Deleted!',

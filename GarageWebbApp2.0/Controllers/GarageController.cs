@@ -11,60 +11,16 @@ namespace GarageWebbApp2._0.Controllers
 {
     public class GarageController : Controller
     {
-        private VehicleRepository db;
+        private VehicleRepository _repo;
 
         public GarageController()
         {
-            db = new VehicleRepository();
+            _repo = new VehicleRepository();
         }
 
         public ActionResult Index()
         {
-            return View(db.GetAllVehicles());
-        }
-
-        public ActionResult Details(int id)
-        {
-            var result = db.GetVehicleById(id);
-
-            if (result != null)
-                return View(result);
-
-            return RedirectToAction("Error");
-        }
-
-        public ActionResult Search()
-        {
-            return View(db.GetAllVehicles());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(string SelectionField, string SearchField)
-        {
-            ViewBag.Message = "new";
-            var res = db.Search(SelectionField, SearchField);
-            if (db.IsDataBaseEmpty() == true)
-	        {
-                ViewBag.Message = "IsEmpty";
-                return View(db.GetAllVehicles());
-	        }
-            else if (res.Count() == 0)
-            {
-                ViewBag.Message = "IsNull";
-                return View(db.GetAllVehicles());
-            }
-            
-            return View(res);
-        }
-
-        public ActionResult Remove(int id)
-        {
-            if (ModelState.IsValid)
-            {
-                db.DeleteVehicle(id);
-            }
-            return Redirect(Request.UrlReferrer.ToString());
+            return View();
         }
 
         public ActionResult Parking()
@@ -72,45 +28,68 @@ namespace GarageWebbApp2._0.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Parking([Bind(Include = "ItemID,RegNum,Owner,NumberOfWheels,ModelYear,Model,Color,VehicleType,Date")] Vehicle vehicleItem)
+        public JsonResult GetAllOwners()
         {
-            if (ModelState.IsValid)
-            {
-                var temp = db.Search("RegNum", vehicleItem.RegNum);
-                if (temp.Count() > 0)
-                {
-                    ViewBag.Message = "InDB";
-                    return View(vehicleItem);
-                }
-                
-                db.AddVehicle(vehicleItem);
-                return RedirectToAction("Index");
-            }
-
-            return View(vehicleItem);
+            return Json(_repo.GetAllOwners(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ListVehicles(string filter)
+        public JsonResult GetAllVehicles()
         {
-            List<string> VehicleTypes = new List<string>();
-            List<string> VehicleColors = new List<string>();
-            FilterDates filterDate;
+            return Json(_repo.GetAllVehicles(), JsonRequestBehavior.AllowGet);
+        }
 
-            FilterViewModels obj = JsonConvert.DeserializeObject<FilterViewModels>(filter);
+        public JsonResult GetVehicle(string id)
+        {
+            return Json(_repo.GetVehicle(id), JsonRequestBehavior.AllowGet);
+        }
 
-            foreach (var item in obj.VehicleTypes)
-                if (item.Value)
-                    VehicleTypes.Add(item.Key);
+        public JsonResult GetAllVehicleTypes()
+        {
+            return Json(_repo.GetAllVehiclesTypes(), JsonRequestBehavior.AllowGet);
+        }
 
-            foreach (var item in obj.VehicleColors)
-                if (item.Value)
-                    VehicleColors.Add(item.Key);
+        public JsonResult AddOwner(Owner owner)
+        {
+            _repo.Add(owner);
 
-            filterDate = (FilterDates)Enum.Parse(typeof(FilterDates), obj.Date, true);
+            if (_repo.GetAllOwners().Where(c => c.Name == owner.Name && c.Owner_ID == owner.Owner_ID).Any())
+            {
+                return Json(new { owner });
+            }
 
-            return Json(db.GetVehicleView(filterDate, VehicleTypes, VehicleColors), JsonRequestBehavior.AllowGet);
+            return Json(new { success = false });
+        }
+
+        public JsonResult AddVehicle(Vehicle vehicle)
+        {
+            _repo.Add(vehicle);
+
+            if (_repo.GetAllVehicles().Where(c => c.Vehicle_ID == vehicle.Vehicle_ID).Any())
+            {
+                return Json(new { vehicle });
+            }
+
+            return Json(new { success = false });
+        }
+
+        public void EditOwner(Owner owner)
+        {
+            _repo.Edit(owner);
+        }
+
+        public void EditVehicle(Vehicle vehicle)
+        {
+            _repo.Edit(vehicle);
+        }
+
+        public void DeleteOwner(Owner owner)
+        {
+            _repo.Remove(owner);
+        }
+
+        public void DeleteVehicle(Vehicle vehicle)
+        {
+            _repo.Remove(vehicle);
         }
 
         public string GetFilters()
