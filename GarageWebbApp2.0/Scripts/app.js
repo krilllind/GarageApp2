@@ -46,41 +46,56 @@
     });
 
     app.controller("add_vehicle", function ($scope, $http) {
-        $scope.New = {};
-        $scope.Data = {
-            Owners: {},
-            Types:  {},
-            Colors: {}
-        };
+        function ThrowError() {
+            $scope.ErrorMessage = "Something went wroooong!";
 
-        $http.get("/Garage/GetAllOwners/").success(function (data) {
-            if (data != null || data != "undefined") {
-                $scope.Data.Owners = data;
-            }
-        });
-
-        $http.get("/Garage/GetAllVehicleTypes/").success(function (data) {
-            if (data != null || data != "undefined") {
-                $scope.Data.Types = data;
-            }
-        })
-
-        $scope.SubmitForm = function(e) {
-            e.preventDefault();
-
-            alert("Soft");
-
-            $http.post().success(function (data) {
-                
-            })
-            .error(function(data) {
-                swal({
-                    title: 'Error!',
-                    text: 'That Vehicle is already in the garage',
-                    type: 'error',
-                    confirmButtonText: 'Continue'
-                });
+            swal({
+                title: 'Error!',
+                text: 'Something went wrong!',
+                type: 'error',
+                confirmButtonText: 'Continue'
             });
+        }
+
+        var SetOwners = function (response) {
+            console.log(response);
+            $scope.Data.Owners = response.data;
+        }
+
+        var SetVehicleTypes = function (response) {
+            $scope.Data.VehicleTypes = response.data;
+        }
+
+        var SetVehicleColors = function (response) {
+            $scope.Data.VehicleColors = response.data;
+        }
+
+        var AddedNewObj = function () {
+            swal({
+                title: 'Added!',
+                text: 'New vehicle has been added!',
+                type: 'success',
+                confirmButtonText: 'Continue'
+            });
+        }
+
+        $scope.New = {};
+        $scope.Data = {};
+
+        $http.get("/Garage/GetAllOwners/")
+            .then(SetOwners, ThrowError);
+
+        $http.get("/Garage/GetAllVehicleTypes/")
+            .then(SetVehicleTypes, ThrowError);
+
+        $http.get("/Garage/GetAllVehicleColors/")
+            .then(SetVehicleColors, ThrowError);
+
+        $scope.SubmitForm = function (newObj) {
+            newObj.Vehicle_ID = newObj.Vehicle_ID.toUpperCase();
+            $http.post("/Garage/AddVehicle/", {
+                data: newObj
+            }).then(AddedNewObj, ThrowError);
         }
     });
 }());

@@ -28,6 +28,11 @@ namespace GarageWebbApp2._0.Controllers
             return View();
         }
 
+        public ActionResult Details(string id)
+        {
+            return View();
+        }
+
         public JsonResult GetAllOwners()
         {
             return Json(_repo.GetAllOwners(), JsonRequestBehavior.AllowGet);
@@ -48,6 +53,11 @@ namespace GarageWebbApp2._0.Controllers
             return Json(_repo.GetAllVehiclesTypes(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetAllVehicleColors()
+        {
+            return Json(_repo.GetAllVehicleColors(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult AddOwner(Owner owner)
         {
             _repo.Add(owner);
@@ -60,13 +70,16 @@ namespace GarageWebbApp2._0.Controllers
             return Json(new { success = false });
         }
 
-        public JsonResult AddVehicle(Vehicle vehicle)
+        [HttpPost]
+        public JsonResult AddVehicle(Vehicle data)
         {
-            _repo.Add(vehicle);
+            data.Owner = _repo.GetOwner(data.Owner_ID);
+            data.VehicleType = _repo.GetAllVehiclesTypes().Single(t => t.VehicleType_Id == data.Type);
+            _repo.Add(data);
 
-            if (_repo.GetAllVehicles().Where(c => c.Vehicle_ID == vehicle.Vehicle_ID).Any())
+            if (_repo.GetAllVehicles().Where(c => c.Vehicle_ID == data.Vehicle_ID).Any())
             {
-                return Json(new { vehicle });
+                return Json(new { data });
             }
 
             return Json(new { success = false });

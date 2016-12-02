@@ -10,22 +10,22 @@
 
 <content class="col-xs-12" ng-controller="add_vehicle">
     <div class="row">
-        <form method="post" action="#" ng-submit="SubmitForm">
-            <input type="text" max="6" min="6" ng-model="User.RegNum" placeholder="Example ABC123" />
+        <form method="post" ng-submit="SubmitForm(New)">
+            <input type="text" max="6" min="6" ng-model="New.Vehicle_ID" placeholder="Example ABC123" />
 
-            <select ng-model="New.Owner">
+            <select ng-model="New.Owner_ID">
                 <option value="">-- Select a Owner --</option>
                 <option ng-repeat="o in Data.Owners" ng-value="o.Owner_ID">{{o.Name}}</option>
             </select>
 
             <select ng-model="New.Type">
                 <option value="">-- Select a Type --</option>
-                <option ng-repeat="t in Data.Types" ng-value="t.Name">{{t.Name}}</option>
+                <option ng-repeat="t in Data.VehicleTypes" ng-value="t.VehicleType_Id">{{t.Name}}</option>
             </select>
 
             <select ng-model="New.Color">
                 <option value="">-- Select a Color --</option>
-                <option ng-repeat="c in Data.Colors" ng-value="c.Name">{{c.Name}}</option>
+                <option ng-repeat="c in Data.VehicleColors" ng-value="c.ID">{{c.Name}}</option>
             </select>
 
             <input type="submit" name="ParkVehicle" value="Park new vehicle!" />

@@ -35,6 +35,14 @@ namespace GarageWebbApp2._0.Repositories
             return db.VehicleTypes.ToList();
         }
 
+        public IEnumerable<object> GetAllVehicleColors()
+        {
+            var list = Enum.GetNames(typeof(VehicleColors));
+
+            foreach (var item in list)
+                yield return new { Name = item, ID = Enum.Parse(typeof(VehicleColors), item) } ;
+        }
+
         public Owner GetOwner(string id)
         {
             return db.Owners.Find(id);
