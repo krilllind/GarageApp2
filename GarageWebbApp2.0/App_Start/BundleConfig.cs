@@ -13,7 +13,8 @@ namespace GarageWebbApp2._0
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
                         "~/Scripts/angular.js",
-                        "~/Scripts/angular-route.js"));
+                        "~/Scripts/angular-route.js",
+                        "~/Scripts/angular-animate.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

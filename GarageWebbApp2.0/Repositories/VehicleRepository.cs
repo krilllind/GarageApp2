@@ -59,10 +59,18 @@ namespace GarageWebbApp2._0.Repositories
             db.SaveChanges();
         }
 
-        public void Add(Vehicle ve)
+        public bool Add(Vehicle ve)
         {
-            db.Vehicles.Add(ve);
-            db.SaveChanges();
+            try
+            {
+                db.Vehicles.Add(ve);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception) 
+            {
+                return false;
+            }
         }
 
         public void Edit(Owner ow)
@@ -83,9 +91,10 @@ namespace GarageWebbApp2._0.Repositories
             db.SaveChanges();
         }
 
-        public void Remove(Vehicle ve)
+        public void Remove(string ve)
         {
-            db.Vehicles.Remove(ve);
+            Vehicle v = db.Vehicles.Single(o => o.Vehicle_ID == ve);
+            db.Vehicles.Remove(v);
             db.SaveChanges();
         }
         public IEnumerable<VehicleViewModels> GetVehicleView(FilterDates date, List<string> FilterTypes = null, List<string> FilterColors = null)

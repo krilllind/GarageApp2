@@ -43,7 +43,7 @@
                 <th class="col-xs-1"></th>
             </tr>
 
-            <tr ng-repeat="data in Vehicles | filter:Search" class="row">
+            <tr ng-repeat="data in Vehicles | filter:Search" ng-animate="'animate'" class="row">
                 <td class="col-xs-4"><a href="/Garage/Details/{{data.Vehicle_ID}}">{{data.Vehicle_ID}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
                 <td class="col-xs-4" ng-bind="data.Owner.Name"></td>
                 <td class="col-xs-3" ng-bind="data.VehicleType.Name"></td>

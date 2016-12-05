@@ -75,13 +75,11 @@ namespace GarageWebbApp2._0.Controllers
         {
             data.Owner = _repo.GetOwner(data.Owner_ID);
             data.VehicleType = _repo.GetAllVehiclesTypes().Single(t => t.VehicleType_Id == data.Type);
-            _repo.Add(data);
 
-            if (_repo.GetAllVehicles().Where(c => c.Vehicle_ID == data.Vehicle_ID).Any())
-            {
+            if (_repo.Add(data))
                 return Json(new { data });
-            }
 
+            Response.StatusCode = 400;
             return Json(new { success = false });
         }
 
@@ -100,7 +98,7 @@ namespace GarageWebbApp2._0.Controllers
             _repo.Remove(owner);
         }
 
-        public void DeleteVehicle(Vehicle vehicle)
+        public void DeleteVehicle(string vehicle)
         {
             _repo.Remove(vehicle);
         }

@@ -1,5 +1,5 @@
 ﻿(function () {
-    var app = angular.module("garage_app", []);
+    var app = angular.module("garage_app", ['ngAnimate']);
 
     app.controller("garage_controller", function ($scope, $http) {
         $scope.Filters = {};
@@ -58,7 +58,6 @@
         }
 
         var SetOwners = function (response) {
-            console.log(response);
             $scope.Data.Owners = response.data;
         }
 
@@ -75,8 +74,15 @@
                 title: 'Added!',
                 text: 'New vehicle has been added!',
                 type: 'success',
+                timer: 2500,
                 confirmButtonText: 'Continue'
-            });
+            }).then(function () { },
+                function (dismiss) {
+                    if (dismiss === 'timer') {
+                        window.location.href = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+                    }
+                }
+            );
         }
 
         $scope.New = {};
@@ -93,9 +99,10 @@
 
         $scope.SubmitForm = function (newObj) {
             newObj.Vehicle_ID = newObj.Vehicle_ID.toUpperCase();
+
             $http.post("/Garage/AddVehicle/", {
                 data: newObj
-            }).then(AddedNewObj, ThrowError);
+            }).success(AddedNewObj).error(ThrowError);
         }
     });
 }());
