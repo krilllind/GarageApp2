@@ -28,7 +28,7 @@ namespace GarageWebbApp2._0.Controllers
             return View();
         }
 
-        public ActionResult Details(string id)
+        public ActionResult Edit()
         {
             return View();
         }
@@ -43,9 +43,9 @@ namespace GarageWebbApp2._0.Controllers
             return Json(_repo.GetAllVehicles(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetVehicle(string id)
+        public JsonResult GetVehicle(string data)
         {
-            return Json(_repo.GetVehicle(id), JsonRequestBehavior.AllowGet);
+            return Json(_repo.GetVehicle(data), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllVehicleTypes()
@@ -83,24 +83,14 @@ namespace GarageWebbApp2._0.Controllers
             return Json(new { success = false });
         }
 
-        public void EditOwner(Owner owner)
+        [HttpPost]
+        public JsonResult DeleteVehicle(string data)
         {
-            _repo.Edit(owner);
-        }
+            if (_repo.Remove(data))
+                return Json(new { data });
 
-        public void EditVehicle(Vehicle vehicle)
-        {
-            _repo.Edit(vehicle);
-        }
-
-        public void DeleteOwner(Owner owner)
-        {
-            _repo.Remove(owner);
-        }
-
-        public void DeleteVehicle(string vehicle)
-        {
-            _repo.Remove(vehicle);
+            Response.StatusCode = 400;
+            return Json(new { success = false });
         }
 
         public string GetFilters()

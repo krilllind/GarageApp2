@@ -1,6 +1,4 @@
-﻿@model IEnumerable<GarageWebbApp2._0.Models.Vehicle>
-
-@{
+﻿@{
     ViewBag.Title = "Garage";
 }
 
@@ -44,10 +42,19 @@
             </tr>
 
             <tr ng-repeat="data in Vehicles | filter:Search" ng-animate="'animate'" class="row">
-                <td class="col-xs-4"><a href="/Garage/Details/{{data.Vehicle_ID}}">{{data.Vehicle_ID}} <i class="fa fa-external-link" aria-hidden="true"></i></a></td>
+                <td class="col-xs-4">{{data.Vehicle_ID}}</td>
                 <td class="col-xs-4" ng-bind="data.Owner.Name"></td>
                 <td class="col-xs-3" ng-bind="data.VehicleType.Name"></td>
-                <td class="col-xs-1"><a href="/Garage/DeleteVehicle/{{data.Vehicle_ID}}" class="RemoveBtn"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a></td>
+                <td class="col-xs-1">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-pencil EditBtn" aria-hidden="true" ng-click="EditObj(data.Vehicle_ID)" title="Edit"></i>
+                        </div>
+                        <div class="col-xs-6">
+                            <i class="fa fa-trash RemoveBtn" aria-hidden="true" ng-click="RemoveObj(data.Vehicle_ID)" title="Remove"></i>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </table>
     </article>

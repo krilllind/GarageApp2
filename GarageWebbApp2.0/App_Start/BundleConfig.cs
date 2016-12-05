@@ -34,8 +34,7 @@ namespace GarageWebbApp2._0
                       "~/Scripts/angular-csp.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
-                      "~/Scripts/app.js",
-                      "~/Scripts/core.js"));
+                      "~/Scripts/app.js"));
         }
     }
 }

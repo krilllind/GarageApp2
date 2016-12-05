@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Edit vehicle";
+}
+
+<header class="col-xs-12">
+    <h2 class="col-xs-12 text-center">Edit</h2>
+</header>
+
+<content class="col-xs-12" ng-controller="garage_edit">
+    <div class="row">
+        <form method="post" ng-submit="SubmitForm(Vehicles)">
+            <input type="text" max="6" min="6" ng-model="Vehicles.Vehicle_ID" placeholder="Example ABC123" />
+
+            <select ng-model="Vehicles.Owner_ID">
+                <option ng-repeat="o in Data.Owners" ng-value="o.Owner_ID">{{o.Name}}</option>
+            </select>
+
+            <select ng-model="Vehicles.Type">
+                <option ng-repeat="t in Data.VehicleTypes" ng-value="t.VehicleType_Id">{{t.Name}}</option>
+            </select>
+
+            <select ng-model="Vehicles.Color">
+                <option ng-repeat="c in Data.VehicleColors" ng-value="c.ID">{{c.Name}}</option>
+            </select>
+
+            <input type="submit" name="SaveChanges" value="Save changes" />
+        </form>
+    </div>
+</content>

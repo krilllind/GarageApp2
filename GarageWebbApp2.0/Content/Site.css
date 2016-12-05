@@ -115,19 +115,30 @@ body
     outline: 0 !important;
     border: none;
     background-color: transparent;
-}
-
-.RemoveBtn > .fa
-{
     color: red !important;
     font-size: 16px;
     outline: 0 !important;
+    cursor: pointer;
 
     transition: transform 0.1s ease-in-out;
     -webkit-transition: transform 0.1s ease-in-out;
 }
 
-.RemoveBtn:hover > .fa
+.EditBtn
+{
+    outline: 0 !important;
+    border: none;
+    background-color: transparent;
+    color: #000 !important;
+    font-size: 16px;
+    outline: 0 !important;
+    cursor: pointer;
+
+    transition: transform 0.1s ease-in-out;
+    -webkit-transition: transform 0.1s ease-in-out;
+}
+
+.RemoveBtn:hover, .EditBtn:hover
 {
     transform: scale(1.2);
 }

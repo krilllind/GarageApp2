@@ -91,11 +91,19 @@ namespace GarageWebbApp2._0.Repositories
             db.SaveChanges();
         }
 
-        public void Remove(string ve)
+        public bool Remove(string ve)
         {
-            Vehicle v = db.Vehicles.Single(o => o.Vehicle_ID == ve);
-            db.Vehicles.Remove(v);
-            db.SaveChanges();
+            try
+            {
+                Vehicle v = db.Vehicles.Single(o => o.Vehicle_ID == ve);
+                db.Vehicles.Remove(v);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public IEnumerable<VehicleViewModels> GetVehicleView(FilterDates date, List<string> FilterTypes = null, List<string> FilterColors = null)
         {
